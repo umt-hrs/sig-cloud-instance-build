@@ -1,15 +1,15 @@
 #repo http://mirror.centos.org/centos/6/os/x86_64/
 install
 text
-keyboard us
-lang en_US.UTF-8
+keyboard jp106
+lang ja_JP.UTF-8
 skipx
 network --device eth0 --bootproto dhcp
 rootpw vagrant
 firewall --disabled
 authconfig --enableshadow --enablemd5
 selinux --enforcing
-timezone --utc UTC
+timezone --utc Asia/Tokyo
 services --enabled ntpd,tuned
 # The biosdevname and ifnames options ensure we get "eth0" as our interface
 # even in environments like virtualbox that emulate a real NW card
@@ -63,6 +63,8 @@ hyperv-daemons
 -zd1211-firmware
 # Disable kdump
 -kexec-tools
+
+@japanese-support
 
 %end
 

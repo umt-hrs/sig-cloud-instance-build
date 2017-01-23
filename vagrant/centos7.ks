@@ -1,15 +1,15 @@
 #repo http://mirror.centos.org/centos/7/os/x86_64/
 install
 text
-keyboard us
-lang en_US.UTF-8
+keyboard --vckeymap=jp --xlayouts='jp'
+lang ja_JP.UTF-8
 skipx
 network --device eth0 --bootproto dhcp
 rootpw --plaintext vagrant
 firewall --disabled
 authconfig --enableshadow --enablemd5
 selinux --enforcing
-timezone --utc UTC
+timezone --utc Asia/Tokyo
 services --enabled=vmtoolsd
 # The biosdevname and ifnames options ensure we get "eth0" as our interface
 # even in environments like virtualbox that emulate a real NW card
