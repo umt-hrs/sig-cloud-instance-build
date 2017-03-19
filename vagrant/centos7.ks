@@ -163,4 +163,11 @@ dracut -f /boot/initramfs-${KERNEL_VERSION}.img ${KERNEL_VERSION}
 rm -rf /etc/ssh/ssh_host_*
 hostnamectl set-hostname localhost.localdomain
 rm -rf /etc/udev/rules.d/70-*
+
+sed -ri '/^(server|pool) /d' /etc/chrony.conf
+cat >> /etc/chrony.conf << EOF 
+pool ntp.nict.jp iburst
+pool ntp.jst.mfeed.ad.jp iburst
+EOF
+
 %end

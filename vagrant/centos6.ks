@@ -152,4 +152,11 @@ dracut -f /boot/initramfs-${KERNEL_VERSION}.img ${KERNEL_VERSION}
 rm -rf /etc/ssh/ssh_host_*
 sed -i 's/^HOSTNAME=.*$/HOSTNAME=localhost.localdomain/' /etc/sysconfig/network
 rm -rf /etc/udev/rules.d/70-*
+
+sed -ri '/^(server|pool) /d' /etc/ntp.conf
+cat >> /etc/ntp.conf <<EOF
+pool ntp.nict.jp iburst
+pool ntp.jst.mfeed.ad.jp iburst
+EOF
+
 %end
