@@ -1,0 +1,6 @@
+{
+  "build_name": "CentOS-7",
+  "iso_name": "CentOS-7-x86_64-DVD-1804.iso",
+  "iso_url": "http://vault.centos.org/centos/7.5.1804/isos/x86_64",
+  "kickstart_name": "centos7.ks"
+}

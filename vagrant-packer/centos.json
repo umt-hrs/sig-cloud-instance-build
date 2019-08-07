@@ -1,0 +1,166 @@
+{
+  "builders": [
+    {
+      "boot_command": "<tab> text ks=hd:fd0:/{{user `kickstart_name`}}<enter>",
+      "floppy_dirs": [
+        "http/*"
+      ],
+      "iso_checksum_type": "sha256",
+      "iso_checksum_url": "{{user `iso_url`}}/sha256sum.txt.asc",
+      "iso_urls": [
+        "file://{{user `iso_path`}}/{{user `iso_name`}}",
+        "{{user `iso_url`}}/{{user `iso_name`}}"
+      ],
+      "shutdown_command": "sudo poweroff",
+      "ssh_password": "vagrant",
+      "ssh_timeout": "60m",
+      "ssh_username": "vagrant",
+      "type": "hyperv-iso"
+    },
+    {
+      "boot_command": "<tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/{{user `kickstart_name`}}<enter>",
+      "guest_os_type": "{{user `virtualbox_guest_os_type`}}",
+      "hard_drive_interface": "sata",
+      "headless": "{{user `headless`}}",
+      "http_directory": "http/",
+      "iso_checksum_type": "sha256",
+      "iso_checksum_url": "{{user `iso_url`}}/sha256sum.txt.asc",
+      "iso_interface": "sata",
+      "iso_urls": [
+        "file://{{user `iso_path`}}/{{user `iso_name`}}",
+        "{{user `iso_url`}}/{{user `iso_name`}}"
+      ],
+      "shutdown_command": "sudo poweroff",
+      "ssh_password": "vagrant",
+      "ssh_timeout": "60m",
+      "ssh_username": "vagrant",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "1024"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--mouse",
+          "ps2"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--keyboard",
+          "ps2"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--audio",
+          "none"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--usb",
+          "off"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--usbehci",
+          "off"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--usbxhci",
+          "off"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--nictype1",
+          "virtio"
+        ]
+      ]
+    },
+    {
+      "boot_command": "<tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/{{user `kickstart_name`}}<enter>",
+      "guest_os_type": "centos-64",
+      "headless": "{{user `headless`}}",
+      "http_directory": "http/",
+      "iso_checksum_type": "sha256",
+      "iso_checksum_url": "{{user `iso_url`}}/sha256sum.txt.asc",
+      "iso_urls": [
+        "file://{{user `iso_path`}}/{{user `iso_name`}}",
+        "{{user `iso_url`}}/{{user `iso_name`}}"
+      ],
+      "shutdown_command": "sudo poweroff",
+      "ssh_password": "vagrant",
+      "ssh_timeout": "60m",
+      "ssh_username": "vagrant",
+      "type": "vmware-iso",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "1024",
+        "numvcpus": "1"
+      }
+    }
+  ],
+  "post-processors": [
+    {
+      "compression_level": "{{user `compression_level`}}",
+      "output": "artifacts/{{.Provider}}/{{user `build_name`}}.box",
+      "type": "vagrant"
+    }
+  ],
+  "provisioners": [
+    {
+      "environment_vars": [
+        "http_proxy={{user `http_proxy`}}",
+        "https_proxy={{user `https_proxy`}}"
+      ],
+      "execute_command": "sudo sh -c '{{.Vars}} {{.Path}}'",
+      "override": {
+        "hyperv-iso": {
+          "scripts": [
+            "scripts/clean.sh"
+          ]
+        },
+        "virtualbox-iso": {
+          "scripts": [
+            "scripts/virtualbox.sh",
+            "scripts/clean.sh"
+          ]
+        },
+        "vmware-iso": {
+          "scripts": [
+            "scripts/vmware.sh",
+            "scripts/clean.sh"
+          ]
+        }
+      },
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "build_name": null,
+    "compression_level": "6",
+    "headless": "false",
+    "http_proxy": "{{env `http_proxy`}}",
+    "https_proxy": "{{env `https_proxy`}}",
+    "iso_name": null,
+    "iso_path": "./isos",
+    "iso_url": null,
+    "kickstart_name": null,
+    "virtualbox_guest_os_type": "RedHat_64"
+  }
+}

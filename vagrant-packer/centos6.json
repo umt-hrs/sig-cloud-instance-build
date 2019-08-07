@@ -1,0 +1,6 @@
+{
+  "build_name": "CentOS-6",
+  "iso_name": "CentOS-6.10-x86_64-bin-DVD1.iso",
+  "iso_url": "http://mirror.centos.org/centos/6/isos/x86_64",
+  "kickstart_name": "centos6.ks"
+}

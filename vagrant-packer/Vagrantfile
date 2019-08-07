@@ -1,0 +1,44 @@
+Vagrant.configure('2') do |config|
+
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  config.vm.define 'CentOS-7' do |define|
+    define.vm.box = 'CentOS-7'
+    define.vm.provider :virtualbox do |provider, override|
+      override.vm.box_url = 'file://artifacts/virtualbox/CentOS-7.box'
+    end
+    define.vm.provider :vmware_desktop do |provider, override|
+      override.vm.box_url = 'file://artifacts/vmware/CentOS-7.box'
+    end
+    define.vm.provider :hyperv do |provider, override|
+      override.vm.box_url = 'file://artifacts/hyperv/CentOS-7.box'
+    end
+  end
+
+  config.vm.define 'CentOS-6' do |define|
+    define.vm.box = 'CentOS-6'
+    define.vm.provider :virtualbox do |provider, override|
+      override.vm.box_url = 'file://artifacts/virtualbox/CentOS-6.box'
+    end
+    define.vm.provider :vmware_desktop do |provider, override|
+      override.vm.box_url = 'file://artifacts/vmware/CentOS-6.box'
+    end
+    define.vm.provider :hyperv do |provider, override|
+      override.vm.box_url = 'file://artifacts/hyperv/CentOS-6.box'
+    end
+  end
+
+  config.vm.define 'CentOS-6-i386' do |define|
+    define.vm.box = 'CentOS-6-i386'
+    define.vm.provider :virtualbox do |provider, override|
+      override.vm.box_url = 'file://artifacts/virtualbox/CentOS-6-i386.box'
+    end
+    define.vm.provider :vmware_desktop do |provider, override|
+      override.vm.box_url = 'file://artifacts/vmware/CentOS-6-i386.box'
+    end
+    define.vm.provider :hyperv do |provider, override|
+      override.vm.box_url = 'file://artifacts/hyperv/CentOS-6-i386.box'
+    end
+  end
+
+end

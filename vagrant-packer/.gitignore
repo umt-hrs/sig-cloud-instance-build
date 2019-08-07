@@ -1,0 +1,7 @@
+artifacts/*
+!artifacts/.gitkeep
+isos/*
+!isos/.gitkeep
+packer_cache
+.vagrant/
+output-*/

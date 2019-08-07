@@ -1,0 +1,7 @@
+{
+  "build_name": "CentOS-6.0-i386",
+  "iso_name": "CentOS-6.0-i386-bin-DVD.iso",
+  "iso_url": "http://vault.centos.org/6.0/isos/i386",
+  "kickstart_name": "centos6.ks",
+  "virtualbox_guest_os_type": "RedHat"
+}
