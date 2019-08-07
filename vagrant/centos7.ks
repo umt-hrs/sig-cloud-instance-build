@@ -22,7 +22,7 @@ user --name=vagrant --password=vagrant
 
 reboot
 
-%packages --instLangs=en
+%packages --instLangs=en:ja
 deltarpm
 bash-completion
 man-pages
