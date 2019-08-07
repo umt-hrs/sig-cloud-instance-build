@@ -1,15 +1,15 @@
 #repo http://mirror.centos.org/centos/7/os/x86_64/
 install
 text
-keyboard us
-lang en_US.UTF-8
+keyboard --vckeymap=jp --xlayouts='jp'
+lang ja_JP.UTF-8
 skipx
 network --device eth0 --bootproto dhcp
 rootpw --plaintext vagrant
 firewall --disabled
 authconfig --enableshadow --enablemd5
 selinux --enforcing
-timezone --utc UTC
+timezone --utc Asia/Tokyo
 services --enabled=vmtoolsd
 # The biosdevname and ifnames options ensure we get "eth0" as our interface
 # even in environments like virtualbox that emulate a real NW card
@@ -22,7 +22,7 @@ user --name=vagrant --password=vagrant
 
 reboot --eject
 
-%packages --instLangs=en --ignoremissing
+%packages --instLangs=en:ja --ignoremissing
 deltarpm
 bash-completion
 man-pages
@@ -169,4 +169,11 @@ dracut -f /boot/initramfs-${KERNEL_VERSION}.img ${KERNEL_VERSION}
 rm -rf /etc/ssh/ssh_host_*
 hostnamectl set-hostname localhost.localdomain
 rm -rf /etc/udev/rules.d/70-*
+
+sed -ri '/^(server|pool) /d' /etc/chrony.conf
+cat >> /etc/chrony.conf << EOF 
+pool ntp.nict.jp iburst
+pool ntp.jst.mfeed.ad.jp iburst
+EOF
+
 %end

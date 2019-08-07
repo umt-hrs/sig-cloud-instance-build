@@ -3,7 +3,7 @@ VAGRANT := vagrant
 
 ARTIFACTS := artifacts
 
-NAMESPACE := Taysir
+NAMESPACE := umt-hrs
 
 VIRTUALBOX := virtualbox
 VIRTUALBOX-BUILDER := $(VIRTUALBOX)-iso
